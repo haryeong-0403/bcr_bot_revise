@@ -37,9 +37,20 @@
 
     <xacro:arg name="robot_namespace" default=""/>
     <xacro:arg name="wheel_odom_topic" default="odom" />
-    <xacro:arg name="camera_enabled" default="false" />
-    <xacro:arg name="stereo_camera_enabled" default="false" />
-    <xacro:arg name="two_d_lidar_enabled" default="false" />
+
+    <xacro:arg name="front_kinect_camera_enabled" default="true" />
+    <xacro:arg name="back_kinect_camera_enabled" default="true" />
+
+    <xacro:arg name="front_stereo_camera_enabled" default="true" />
+    <xacro:arg name="back_stereo_camera_enabled" default="true" />
+
+    <xacro:arg name="left_kinect_camera_enabled" default="true" />
+    <xacro:arg name="right_kinect_camera_enabled" default="true" />
+
+    <xacro:arg name="left_stereo_camera_enabled" default="true" />
+    <xacro:arg name="right_stereo_camera_enabled" default="true" />
+
+    <xacro:arg name="two_d_lidar_enabled" default="true" />
     <xacro:arg name="publish_wheel_odom_tf" default="true" />
     <xacro:arg name="conveyor_enabled" default="false"/>
     <xacro:arg name="ground_truth_frame" default="map"/>
@@ -167,13 +178,90 @@
         <origin xyz="0.0 0.0 0.08" rpy="0.0 0.0 0.0"/>
     </joint>
 
-    <!-- ............................. CAMERA ........................................ -->
+    <!-- ............................. Front KINECT CAMERA ........................................ -->
 
-    <xacro:if value="$(arg camera_enabled)">
+    <xacro:if value="$(arg front_kinect_camera_enabled)">
 
-        <!-- KINECT CAMERA -->
+        <link name="front_kinect_camera">
+            <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.07 0.3 0.09"/>
+            </geometry>
+            </collision>
+            <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="file://$(find bcr_bot)/meshes/kinect/d415.dae"/>
+            </geometry>
+            <material name="black"/>
+            </visual>
+            <inertial>
+            <mass value="0.01"/>
+            <xacro:box_inertia m="0.01" x="0.07" y="0.3" z="0.09"/>
+            </inertial>
+        </link>
 
-        <link name="kinect_camera">
+        <joint name="front_kinect_camera_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="${chassis_length/2} 0 ${chassis_height/7}"/>
+            <parent link="base_link"/>
+            <child link="front_kinect_camera"/>
+        </joint>
+
+        <link name="front_kinect_camera_optical"/>
+
+        <joint name="front_kinect_camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            <parent link="front_kinect_camera"/>
+            <child link="front_kinect_camera_optical"/>
+        </joint>
+
+    </xacro:if>
+
+    <!-- ............................. Front STEREO CAMERA ........................................ -->
+
+    <xacro:if value="$(arg front_stereo_camera_enabled)">
+        <link name="front_stereo_camera">
+            <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.3 0.1"/>
+            </geometry>
+            </collision>
+            <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find bcr_bot)/meshes/kinect/d415.dae"/>
+            </geometry>
+            <material name="black"/>
+            </visual>
+            <inertial>
+            <mass value="0.01"/>
+            <xacro:box_inertia m="0.01" x="0.08" y="0.3" z="0.1"/>
+            </inertial>
+        </link>
+
+        <joint name="front_stereo_camera_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="${chassis_length/2} 0 ${chassis_height/7}"/>
+            <parent link="base_link"/>
+            <child link="front_stereo_camera"/>
+        </joint>
+
+        <link name="front_stereo_camera_optical"/>
+
+        <joint name="front_stereo_camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            <parent link="front_stereo_camera"/>
+            <child link="front_stereo_camera_optical"/>
+        </joint>
+
+    </xacro:if>
+    
+    <!-- ............................. Back KINECT CAMERA ........................................ -->
+
+    <xacro:if value="$(arg back_kinect_camera_enabled)">
+
+        <link name="back_kinect_camera">
 
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
@@ -197,29 +285,27 @@
 
         </link>
 
-        <joint name="kinect_camera_joint" type="fixed">
-            <origin rpy="0 0 0" xyz="${chassis_length/2} 0 ${chassis_height/7}"/>
+        <joint name="back_kinect_camera_joint" type="fixed">
+            <origin xyz="-${chassis_length/2} 0 ${chassis_height/7}" rpy="0 0 ${pi}"/>
             <parent link="base_link"/>
-            <child link="kinect_camera"/>
+            <child link="back_kinect_camera"/>
         </joint>
 
-        <link name="kinect_camera_optical"/>
+        <link name="back_kinect_camera_optical"/>
 
-        <joint name="kinect_camera_optical_joint" type="fixed">
+        <joint name="back_kinect_camera_optical_joint" type="fixed">
             <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
-            <parent link="kinect_camera"/>
-            <child link="kinect_camera_optical"/>
+            <parent link="back_kinect_camera"/>
+            <child link="back_kinect_camera_optical"/>
         </joint>
 
     </xacro:if>
 
-    <!-- .............................STEREO CAMERA ........................................ -->
+    <!-- ............................. Back STEREO CAMERA ........................................ -->
 
-    <xacro:if value="$(arg stereo_camera_enabled)">
+    <xacro:if value="$(arg back_stereo_camera_enabled)">
 
-        <!-- STEREO CAMERA -->
-
-        <link name="stereo_camera">
+        <link name="back_stereo_camera">
 
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
@@ -243,22 +329,198 @@
 
         </link>
 
-        <joint name="stereo_camera_joint" type="fixed">
-            <origin rpy="0 0 0" xyz="${chassis_length/2} 0 ${chassis_height/7}"/>
+        <joint name="back_stereo_camera_joint" type="fixed">
+            <origin xyz="-${chassis_length/2} 0 ${chassis_height/7}" rpy="0 0 ${pi}"/>
             <parent link="base_link"/>
-            <child link="stereo_camera"/>
+            <child link="back_stereo_camera"/>
         </joint>
 
-        <link name="stereo_camera_optical"/>
+        <link name="back_stereo_camera_optical"/>
 
-        <joint name="stereo_camera_optical_joint" type="fixed">
+        <joint name="back_stereo_camera_optical_joint" type="fixed">
             <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
-            <parent link="stereo_camera"/>
-            <child link="stereo_camera_optical"/>
+            <parent link="back_stereo_camera"/>
+            <child link="back_stereo_camera_optical"/>
+        </joint>
+
+    </xacro:if>
+ 
+    <!-- ............................. Left KINECT CAMERA ........................................ -->
+
+    <xacro:if value="$(arg left_kinect_camera_enabled)">
+
+        <link name="left_kinect_camera">
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.07 0.3 0.09"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="file://$(find bcr_bot)/meshes/kinect/d415.dae"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <mass value="0.01"/>
+                <xacro:box_inertia m="0.01" x="0.07" y="0.3" z = "0.09"/>
+            </inertial>
+
+        </link>
+
+        <joint name="left_kinect_camera_joint" type="fixed">
+            <origin xyz="0 -0.36 ${chassis_height/7}" rpy="0 0 ${-pi/2}"/>
+            <parent link="base_link"/>
+            <child link="left_kinect_camera"/>
+        </joint>
+
+        <link name="left_kinect_camera_optical"/>
+
+        <joint name="left_kinect_camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            <parent link="left_kinect_camera"/>
+            <child link="left_kinect_camera_optical"/>
         </joint>
 
     </xacro:if>
 
+    <!-- ............................. Left STEREO CAMERA ........................................ -->
+
+    <xacro:if value="$(arg left_stereo_camera_enabled)">
+
+        <link name="left_stereo_camera">
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.07 0.3 0.09"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="file://$(find bcr_bot)/meshes/kinect/d415.dae"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <mass value="0.01"/>
+                <xacro:box_inertia m="0.01" x="0.07" y="0.3" z = "0.09"/>
+            </inertial>
+
+        </link>
+
+        <joint name="left_stereo_camera_joint" type="fixed">
+            <origin xyz="0 -0.36 ${chassis_height/7}" rpy="0 0 ${-pi/2}"/>
+            <parent link="base_link"/>
+            <child link="left_stereo_camera"/>
+        </joint>
+
+        <link name="left_stereo_camera_optical"/>
+
+        <joint name="left_stereo_camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            <parent link="left_stereo_camera"/>
+            <child link="left_stereo_camera_optical"/>
+        </joint>
+
+    </xacro:if>
+
+    <!-- ............................. Right KINECT CAMERA ........................................ -->
+
+    <xacro:if value="$(arg right_kinect_camera_enabled)">
+
+        <link name="right_kinect_camera">
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.07 0.3 0.09"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="file://$(find bcr_bot)/meshes/kinect/d415.dae"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <mass value="0.01"/>
+                <xacro:box_inertia m="0.01" x="0.07" y="0.3" z = "0.09"/>
+            </inertial>
+
+        </link>
+
+        <joint name="right_kinect_camera_joint" type="fixed">
+            <origin xyz="0 0.36 ${chassis_height/7}" rpy="0 0 ${pi/2}"/>
+            <parent link="base_link"/>
+            <child link="right_kinect_camera"/>
+        </joint>
+
+        <link name="right_kinect_camera_optical"/>
+
+        <joint name="right_kinect_camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            <parent link="right_kinect_camera"/>
+            <child link="right_kinect_camera_optical"/>
+        </joint>
+
+    </xacro:if>
+
+      <!-- ........................... right Stereo camera ................................... -->
+
+
+    <xacro:if value="$(arg right_stereo_camera_enabled)">
+
+        <link name="right_stereo_camera">
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.07 0.3 0.09"/>
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="file://$(find bcr_bot)/meshes/kinect/d415.dae"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <inertial>
+                <mass value="0.01"/>
+                <xacro:box_inertia m="0.01" x="0.07" y="0.3" z = "0.09"/>
+            </inertial>
+
+        </link>
+
+        <joint name="right_stereo_camera_joint" type="fixed">
+            <origin xyz="0 0.36 ${chassis_height/7}" rpy="0 0 ${pi/2}"/>
+            <parent link="base_link"/>
+            <child link="right_stereo_camera"/>
+        </joint>
+
+        <link name="right_stereo_camera_optical"/>
+
+        <joint name="right_stereo_camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+            <parent link="right_stereo_camera"/>
+            <child link="right_stereo_camera_optical"/>
+        </joint>
+
+    
     <!-- ............................. ROOF ........................................ -->
 
     <link name="roof_link">

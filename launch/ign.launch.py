@@ -44,5 +44,6 @@ def generate_launch_description():
         DeclareLaunchArgument("use_sim_time", default_value=use_sim_time),
         DeclareLaunchArgument("world_file", default_value=world_file),
         
-        gz_sim, spawn_bcr_bot_node
+        gz_sim, 
+        spawn_bcr_bot_node
     ])
