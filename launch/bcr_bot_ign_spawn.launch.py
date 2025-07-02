@@ -66,9 +66,9 @@ def generate_launch_description():
                     ' odometry_source:=', odometry_source,
                     ' sim_ign:=', "true"
                     ])}],
-        remappings=[
-            ('/joint_states', 'bcr_bot/joint_states'),
-        ]
+        # remappings=[
+        #     ('/joint_states', 'bcr_bot/joint_states'),
+        # ]
     )
 
     gz_spawn_entity = Node(
@@ -147,47 +147,47 @@ def generate_launch_description():
 
             "/world/default/model/bcr_bot/joint_state@sensor_msgs/msg/JointState[ignition.msgs.Model"
         ],
-        remappings=[
-            ('/imu', 'bcr_bot/imu'),
-            ('/cmd_vel', 'bcr_bot/cmd_vel'),
+        # remappings=[
+        #     ('/imu', 'bcr_bot/imu'),
+        #     ('/cmd_vel', 'bcr_bot/cmd_vel'),
 
-            ('/world/default/model/bcr_bot/joint_state', 'bcr_bot/joint_states'),
-            ('/odom', 'bcr_bot/odom'),
-            ('/scan', 'bcr_bot/scan'),
+        #     ('/world/default/model/bcr_bot/joint_state', 'bcr_bot/joint_states'),
+        #     ('/odom', 'bcr_bot/odom'),
+        #     ('/scan', 'bcr_bot/scan'),
             
-            ('/front_kinect_camera', 'bcr_bot/front_kinect_camera'),
-            ('/front_stereo_camera/left/image_raw', 'bcr_bot/front_stereo_camera/left/image_raw'),
-            ('/front_stereo_camera/right/image_raw', 'bcr_bot/front_stereo_camera/right/image_raw'),
-            # ('/front_kinect_camera/camera_info', 'bcr_bot/front_kinect_camera/camera_info'),
-            ('/front_stereo_camera/left/camera_info', 'bcr_bot/front_stereo_camera/left/camera_info'),
-            ('/front_stereo_camera/right/camera_info', 'bcr_bot/front_stereo_camera/right/camera_info'),
-            # ('/front_kinect_camera/points', 'bcr_bot/front_kinect_camera/points'),
+        #     ('/front_kinect_camera', 'bcr_bot/front_kinect_camera'),
+        #     ('/front_stereo_camera/left/image_raw', 'bcr_bot/front_stereo_camera/left/image_raw'),
+        #     ('/front_stereo_camera/right/image_raw', 'bcr_bot/front_stereo_camera/right/image_raw'),
+        #     # ('/front_kinect_camera/camera_info', 'bcr_bot/front_kinect_camera/camera_info'),
+        #     ('/front_stereo_camera/left/camera_info', 'bcr_bot/front_stereo_camera/left/camera_info'),
+        #     ('/front_stereo_camera/right/camera_info', 'bcr_bot/front_stereo_camera/right/camera_info'),
+        #     # ('/front_kinect_camera/points', 'bcr_bot/front_kinect_camera/points'),
 
-            ('/back_kinect_camera', 'bcr_bot/back_kinect_camera'),
-            ('/back_stereo_camera/left/image_raw', 'bcr_bot/back_stereo_camera/left/image_raw'),
-            ('/back_stereo_camera/right/image_raw', 'bcr_bot/back_stereo_camera/right/image_raw'),
-            # ('/back_kinect_camera/camera_info', 'bcr_bot/back_kinect_camera/camera_info'),
-            ('/back_stereo_camera/left/camera_info', 'bcr_bot/back_stereo_camera/left/camera_info'),
-            ('/back_stereo_camera/right/camera_info', 'bcr_bot/back_stereo_camera/right/camera_info'),
-            # ('/back_kinect_camera/points', 'bcr_bot/back_kinect_camera/points'),
+        #     ('/back_kinect_camera', 'bcr_bot/back_kinect_camera'),
+        #     ('/back_stereo_camera/left/image_raw', 'bcr_bot/back_stereo_camera/left/image_raw'),
+        #     ('/back_stereo_camera/right/image_raw', 'bcr_bot/back_stereo_camera/right/image_raw'),
+        #     # ('/back_kinect_camera/camera_info', 'bcr_bot/back_kinect_camera/camera_info'),
+        #     ('/back_stereo_camera/left/camera_info', 'bcr_bot/back_stereo_camera/left/camera_info'),
+        #     ('/back_stereo_camera/right/camera_info', 'bcr_bot/back_stereo_camera/right/camera_info'),
+        #     # ('/back_kinect_camera/points', 'bcr_bot/back_kinect_camera/points'),
 
-            ('/left_kinect_camera', 'bcr_bot/left_kinect_camera'),
-            ('/left_stereo_camera/left/image_raw', 'bcr_bot/left_stereo_camera/left/image_raw'),
-            ('/left_stereo_camera/right/image_raw', 'bcr_bot/left_stereo_camera/right/image_raw'),
-            # ('/left_kinect_camera/camera_info', 'bcr_bot/left_kinect_camera/camera_info'),
-            ('/left_stereo_camera/left/camera_info', 'bcr_bot/left_stereo_camera/left/camera_info'),
-            ('/left_stereo_camera/right/camera_info', 'bcr_bot/left_stereo_camera/right/camera_info'),
-            # ('/left_kinect_camera/points', 'bcr_bot/left_kinect_camera/points'),        
+        #     ('/left_kinect_camera', 'bcr_bot/left_kinect_camera'),
+        #     ('/left_stereo_camera/left/image_raw', 'bcr_bot/left_stereo_camera/left/image_raw'),
+        #     ('/left_stereo_camera/right/image_raw', 'bcr_bot/left_stereo_camera/right/image_raw'),
+        #     # ('/left_kinect_camera/camera_info', 'bcr_bot/left_kinect_camera/camera_info'),
+        #     ('/left_stereo_camera/left/camera_info', 'bcr_bot/left_stereo_camera/left/camera_info'),
+        #     ('/left_stereo_camera/right/camera_info', 'bcr_bot/left_stereo_camera/right/camera_info'),
+        #     # ('/left_kinect_camera/points', 'bcr_bot/left_kinect_camera/points'),        
 
-            ('/right_kinect_camera', 'bcr_bot/right_kinect_camera'),
-            ('/right_stereo_camera/left/image_raw', 'bcr_bot/right_stereo_camera/left/image_raw'),
-            ('/right_stereo_camera/right/image_raw', 'bcr_bot/right_stereo_camera/right/image_raw'),
-            # ('/right_kinect_camera/camera_info', 'bcr_bot/right_kinect_camera/camera_info'),
-            ('/right_stereo_camera/left/camera_info', 'bcr_bot/right_stereo_camera/left/camera_info'),
-            ('/right_stereo_camera/right/camera_info', 'bcr_bot/right_stereo_camera/right/camera_info'),
-            # ('/right_kinect_camera/points', 'bcr_bot/right_kinect_camera/points'),    
+        #     ('/right_kinect_camera', 'bcr_bot/right_kinect_camera'),
+        #     ('/right_stereo_camera/left/image_raw', 'bcr_bot/right_stereo_camera/left/image_raw'),
+        #     ('/right_stereo_camera/right/image_raw', 'bcr_bot/right_stereo_camera/right/image_raw'),
+        #     # ('/right_kinect_camera/camera_info', 'bcr_bot/right_kinect_camera/camera_info'),
+        #     ('/right_stereo_camera/left/camera_info', 'bcr_bot/right_stereo_camera/left/camera_info'),
+        #     ('/right_stereo_camera/right/camera_info', 'bcr_bot/right_stereo_camera/right/camera_info'),
+        #     # ('/right_kinect_camera/points', 'bcr_bot/right_kinect_camera/points'),    
 
-        ]
+        #]
     )
 
     # transform_publisher = Node(
