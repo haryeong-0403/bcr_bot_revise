@@ -520,6 +520,7 @@
             <child link="right_stereo_camera_optical"/>
         </joint>
 
+    </xacro:if>
     
     <!-- ............................. ROOF ........................................ -->
 
