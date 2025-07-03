@@ -5,17 +5,18 @@ BCR Bot has been revised with multiple cameras (RGB-D + Stereo), topic remapping
 Instead of using the default small_warehouse world provided by the bcr_bot package, we modified the original tugbog_in_warehouse world by removing the Tugbot model, allowing us to use the same warehouse environment independently.
 
 ## 🚀 Features
+
 ✅ ROS2 Humble Desktop Full: All core ROS2 packages
 
 ✅ Gazebo Fortress: Physics-based simulation
 
 ✅ Custom BCR Bot:
 
-  Front / Back / Left / Right Kinect RGB-D Cameras
+    Front / Back / Left / Right Kinect RGB-D Cameras
 
-  Front / Back / Left / Right Stereo Cameras
+    Front / Back / Left / Right Stereo Cameras
 
-  Integrated 2D LiDAR
+    Integrated 2D LiDAR
 
 ✅ Sensor Topic Remapping: Prefixed topics for all cameras (front_, back_, etc.)
 
@@ -82,4 +83,5 @@ source install/setup.bash
 # Launch BCR Bot with Sensors
 
 ```bash
-ros2 launch bcr_bot ign.launch.py # ~~에서 arg check
+ros2 launch bcr_bot ign.launch.py # In bcr_bot.xacro, change the arg 
+```
