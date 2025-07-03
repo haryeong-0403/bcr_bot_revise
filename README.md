@@ -1,4 +1,4 @@
-### BCR Bot Simulation on ROS2 Humble + Gazebo Fortress(Docker)
+# BCR Bot Simulation on ROS2 Humble + Gazebo Fortress(Docker)
 
 This project provides a fully customized development and simulation environment for the BCR Bot using ROS2 Humble and Gazebo Fortress, containerized in Docker for portability and reproducibility.
 BCR Bot has been revised with multiple cameras (RGB-D + Stereo), topic remapping, and full Ignition-Gazebo integration.
@@ -28,7 +28,7 @@ Instead of using the default small_warehouse world provided by the bcr_bot packa
 
 ## 📋 Prerequisites
 
-# Docker Installation
+### Docker Installation
 
 ```bash
 sudo apt update
@@ -38,7 +38,7 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-# GUI Support(for Gazebo)
+### GUI Support(for Gazebo)
 
 ```bash
 xhost +local:docker
@@ -73,14 +73,14 @@ docker compose exec ros2-dev bash
 
 ## 🎯 Using the BCR Bot
 
-# Inside Container
+### Inside Container
 
 ```bash
 colcon build --symlink-install # Free colcon build
 source install/setup.bash
 ```
 
-# Launch BCR Bot with Sensors
+### Launch BCR Bot with Sensors
 
 ```bash
 ros2 launch bcr_bot ign.launch.py # In bcr_bot.xacro, change the arg 
